@@ -1,4 +1,4 @@
-ARG repository
+ARG from
 
 # Download the official headers from github.com/KhronosGroup
 FROM centos:7 as khronos
@@ -16,7 +16,7 @@ RUN git clone https://github.com/KhronosGroup/EGL-Registry.git && cd EGL-Registr
     cp -r api/EGL api/KHR /usr/local/include
 
 
-FROM ${repository}:1.0-glvnd-runtime-centos7
+FROM ${from}
 
 RUN yum install -y \
         pkgconfig \

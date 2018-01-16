@@ -1,4 +1,4 @@
-ARG repository
+ARG from
 
 # Build libglvnd
 FROM centos:7 as glvnd
@@ -37,7 +37,7 @@ RUN make distclean && \
     find /usr/local/lib -type f -name 'lib*.la' -delete
 
 
-FROM ${repository}:base-centos7
+FROM ${from}
 LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>"
 
 COPY --from=glvnd /usr/local/lib64 /usr/local/lib64
