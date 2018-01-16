@@ -31,8 +31,4 @@ COPY --from=khronos /usr/local/include /usr/local/include
 
 ENV PKG_CONFIG_PATH /usr/local/lib64/pkgconfig:/usr/local/lib/pkgconfig
 
-COPY gl.pc.x86_64 /usr/local/lib64/pkgconfig/gl.pc
-COPY egl.pc.x86_64 /usr/local/lib64/pkgconfig/egl.pc
-
-COPY gl.pc.i386 /usr/local/lib/pkgconfig/gl.pc
-COPY egl.pc.i386 /usr/local/lib/pkgconfig/egl.pc
+COPY usr /usr
