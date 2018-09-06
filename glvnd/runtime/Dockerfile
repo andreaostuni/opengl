@@ -15,8 +15,10 @@ RUN yum install -y \
         xorg-x11-proto-devel && \
     rm -rf /var/cache/yum/*
 
+ARG LIBGLVND_VERSION
+
 WORKDIR /opt/libglvnd
-RUN git clone --branch=v1.0.0 https://github.com/NVIDIA/libglvnd.git . && \
+RUN git clone --branch="${LIBGLVND_VERSION}" https://github.com/NVIDIA/libglvnd.git . && \
     ./autogen.sh && \
     ./configure --prefix=/usr/local --libdir=/usr/local/lib64 && \
     make -j"$(nproc)" install-strip && \
