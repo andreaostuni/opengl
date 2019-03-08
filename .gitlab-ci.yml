@@ -4,57 +4,64 @@ services:
     - docker:stable-dind
 
 variables:
-    REPOSITORY: "${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
-    OS: "ubuntu"
-    OS_VERSION: "18.04"
+  IMAGE_NAME: "${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+  OS: "ubuntu"
+  OS_VERSION: "18.04"
 
 before_script:
-    - docker login -u "${REGISTRY_USER}" -p "${REGISTRY_TOKEN}"
+  # - apk add --no-cache git bash findutils
+  - if [[ ! -z $NV_CI_INTERNAL ]]; then
+      export REGISTRY="gitlab-master.nvidia.com:5005";
+      export REGISTRY_USER="gitlab-ci-token";
+      export REGISTRY_TOKEN="${CI_JOB_TOKEN}";
+      export IMAGE_NAME="${REGISTRY}/${IMAGE_NAME}";
+    fi
+  - docker login -u "${REGISTRY_USER}" -p "${REGISTRY_TOKEN}" "${REGISTRY}";
 
 stages:
-    - base
-    - glvnd
+  - base
+  - glvnd
 
 .base_template: &base_definition
-    stage: base
-    script:
-    - docker pull "${REPOSITORY}:base-${OS}${OS_VERSION}" || true
-    - docker build --pull -t "${REPOSITORY}:base-${OS}${OS_VERSION}"
-                   --cache-from "${REPOSITORY}:base-${OS}${OS_VERSION}"
+  stage: base
+  script:
+    - docker pull "${IMAGE_NAME}:base-${OS}${OS_VERSION}" || true
+    - docker build --pull -t "${IMAGE_NAME}:base-${OS}${OS_VERSION}"
+                   --cache-from "${IMAGE_NAME}:base-${OS}${OS_VERSION}"
                    --build-arg "from=${OS}:${OS_VERSION}"
                    "base/"
     - if [[ "${NO_OS_SUFFIX}" == true ]]; then
-          docker tag "${REPOSITORY}:base-${OS}${OS_VERSION}" "${REPOSITORY}:base";
+        docker tag "${IMAGE_NAME}:base-${OS}${OS_VERSION}" "${IMAGE_NAME}:base";
       fi
-    - docker push "${REPOSITORY}"
+    - docker push "${IMAGE_NAME}"
 
 .glvnd_template: &glvnd_definition
-    stage: glvnd
-    script:
+  stage: glvnd
+  script:
     - VERSION="${CI_JOB_NAME:1}"
-    - docker pull "${REPOSITORY}:${VERSION}-runtime-${OS}${OS_VERSION}" || true
-    - docker build --pull -t "${REPOSITORY}:${VERSION}-runtime-${OS}${OS_VERSION}"
-                   --cache-from "${REPOSITORY}:${VERSION}-runtime-${OS}${OS_VERSION}"
-                   --build-arg "from=${REPOSITORY}:base-${OS}${OS_VERSION}"
+    - docker pull "${IMAGE_NAME}:${VERSION}-runtime-${OS}${OS_VERSION}" || true
+    - docker build --pull -t "${IMAGE_NAME}:${VERSION}-runtime-${OS}${OS_VERSION}"
+                   --cache-from "${IMAGE_NAME}:${VERSION}-runtime-${OS}${OS_VERSION}"
+                   --build-arg "from=${IMAGE_NAME}:base-${OS}${OS_VERSION}"
                    --build-arg "LIBGLVND_VERSION=${LIBGLVND_VERSION}"
                    "glvnd/runtime"
-    - docker pull "${REPOSITORY}:${VERSION}-devel-${OS}${OS_VERSION}" || true
-    - docker build -t "${REPOSITORY}:${VERSION}-devel-${OS}${OS_VERSION}"
-                   --cache-from "${REPOSITORY}:${VERSION}-devel-${OS}${OS_VERSION}"
-                   --build-arg "from=${REPOSITORY}:${VERSION}-runtime-${OS}${OS_VERSION}"
+    - docker pull "${IMAGE_NAME}:${VERSION}-devel-${OS}${OS_VERSION}" || true
+    - docker build -t "${IMAGE_NAME}:${VERSION}-devel-${OS}${OS_VERSION}"
+                   --cache-from "${IMAGE_NAME}:${VERSION}-devel-${OS}${OS_VERSION}"
+                   --build-arg "from=${IMAGE_NAME}:${VERSION}-runtime-${OS}${OS_VERSION}"
                    "glvnd/devel"
     - if [[ "${NO_OS_SUFFIX}" == true ]]; then
-          docker tag "${REPOSITORY}:${VERSION}-runtime-${OS}${OS_VERSION}" "${REPOSITORY}:${VERSION}-runtime";
-          docker tag "${REPOSITORY}:${VERSION}-devel-${OS}${OS_VERSION}" "${REPOSITORY}:${VERSION}-devel";
+        docker tag "${IMAGE_NAME}:${VERSION}-runtime-${OS}${OS_VERSION}" "${IMAGE_NAME}:${VERSION}-runtime";
+        docker tag "${IMAGE_NAME}:${VERSION}-devel-${OS}${OS_VERSION}" "${IMAGE_NAME}:${VERSION}-devel";
       fi
     - if [[ "${LATEST}" == true ]]; then
-          docker tag "${REPOSITORY}:${VERSION}-runtime" "${REPOSITORY}:runtime";
-          docker tag "${REPOSITORY}:${VERSION}-devel" "${REPOSITORY}:devel";
+        docker tag "${IMAGE_NAME}:${VERSION}-runtime" "${IMAGE_NAME}:runtime";
+        docker tag "${IMAGE_NAME}:${VERSION}-devel" "${IMAGE_NAME}:devel";
       fi
-    - docker push "${REPOSITORY}"
+    - docker push "${IMAGE_NAME}"
 
 base:
-    <<: *base_definition
+  <<: *base_definition
 
 v1.0-glvnd:
-    <<: *glvnd_definition
+  <<: *glvnd_definition
