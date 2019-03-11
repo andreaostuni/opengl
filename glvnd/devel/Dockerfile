@@ -16,7 +16,7 @@ RUN git clone https://github.com/KhronosGroup/EGL-Registry.git && cd EGL-Registr
     git checkout 0fa0d37da846998aa838ed2b784a340c28dadff3 && \
     cp -r api/EGL api/KHR /usr/local/include
 
-RUN git clone --branch=mesa-17.3.3 --depth=1 https://anongit.freedesktop.org/git/mesa/mesa.git && cd mesa && \
+RUN git clone --branch=mesa-17.3.3 --depth=1 https://gitlab.freedesktop.org/mesa/mesa.git && cd mesa && \
     cp include/GL/gl.h include/GL/gl_mangle.h /usr/local/include/GL/
 
 
