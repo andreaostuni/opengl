@@ -4,7 +4,7 @@ services:
     - docker:stable-dind
 
 variables:
-  IMAGE_NAME: "${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}"
+  IMAGE_NAME: "nvidia/${CI_PROJECT_NAME}"
   OS: "centos"
   OS_VERSION: "7"
 
@@ -14,7 +14,7 @@ before_script:
       export REGISTRY="gitlab-master.nvidia.com:5005";
       export REGISTRY_USER="gitlab-ci-token";
       export REGISTRY_TOKEN="${CI_JOB_TOKEN}";
-      export IMAGE_NAME="${REGISTRY}/${IMAGE_NAME}";
+      export IMAGE_NAME="${REGISTRY}/cuda-installer/${CI_PROJECT_NAME}";
     fi
   - docker login -u "${REGISTRY_USER}" -p "${REGISTRY_TOKEN}" "${REGISTRY}";
 
