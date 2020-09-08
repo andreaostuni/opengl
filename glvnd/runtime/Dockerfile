@@ -1,7 +1,7 @@
 ARG from
 
 # Build libglvnd
-FROM centos:7 as glvnd
+FROM centos:8 as glvnd
 
 RUN yum install -y \
         git \
@@ -9,7 +9,7 @@ RUN yum install -y \
         libtool \
         gcc \
         pkgconfig \
-        python \
+        python2 \
         libXext-devel \
         libX11-devel \
         xorg-x11-proto-devel && \

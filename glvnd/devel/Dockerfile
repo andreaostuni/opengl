@@ -1,7 +1,7 @@
 ARG from
 
 # Download the official headers from github.com/KhronosGroup
-FROM centos:7 as khronos
+FROM centos:8 as khronos
 
 RUN yum install -y \
         git && \
@@ -19,6 +19,10 @@ RUN git clone --branch=mesa-17.3.3 --depth=1 https://gitlab.freedesktop.org/mesa
     cp include/GL/gl.h include/GL/gl_mangle.h /usr/local/include/GL/
 
 FROM ${from}
+
+RUN yum install -y 'dnf-command(config-manager)'
+
+RUN yum config-manager --set-enabled PowerTools
 
 RUN yum install -y \
         pkgconfig \
