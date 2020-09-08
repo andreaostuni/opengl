@@ -153,6 +153,7 @@ prepare:
             echo "Skipping non-os tag '${tag2}' for NGC"
             continue
           fi
+          echo skopeo copy --src-creds "gitlab-ci-token:${CI_JOB_TOKEN}" --dest-creds "${auth_user}:MASKED" docker://${IMAGE_NAME}:${tag2} docker://${reg}:${tag2}
           skopeo copy --src-creds "gitlab-ci-token:${CI_JOB_TOKEN}" --dest-creds "${auth_user}:${auth_pass}" docker://${IMAGE_NAME}:${tag2} docker://${reg}:${tag2}
         done
       done
