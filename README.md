@@ -16,7 +16,7 @@ OpenGL images come in three flavors:
 * ```<version>-glvnd-devel```: extends the `glvnd-runtime` image by adding the official Khronos headers.
   Use this image to compile an OpenGL application from sources.
 
-# Ubuntu 20.04
+## Ubuntu 20.04
 
 - [`base`, `base-ubuntu20.04` (*base/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/ubuntu20.04/base/Dockerfile)
 - [`1.0-glvnd-runtime`, `1.0-glvnd-runtime-ubuntu20.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/ubuntu20.04/glvnd/runtime/Dockerfile)
