@@ -4,6 +4,7 @@ variables:
   OS: "ubuntu"
   OS_VERSION: "16.04"
   IMAGE_NAME: "gitlab-master.nvidia.com:5005/cuda-installer/opengl"
+  BUILDER_IMAGE_NAME: "${IMAGE_NAME}/gitlab-builder"
   REGISTRIES: "nvcr.io/nvidia/opengl docker.io/nvidia/opengl urm.nvidia.com/sw-gpu-cuda-installer-docker-local/opengl"
 
 
@@ -21,7 +22,7 @@ stages:
 
 .tags_template: &tags_definition
   tags:
-    - opengl-docker
+    - docker
 
 # builds the gitlab-builder image
 prepare:
@@ -45,13 +46,15 @@ prepare:
         RUN if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi
         RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
       EOF
-    - docker build -t gitlab-opengl-builder .
+    - docker build -t ${BUILDER_IMAGE_NAME} --cache-from ${BUILDER_IMAGE_NAME} .
+    - docker push ${BUILDER_IMAGE_NAME}
     - docker images
   <<: *tags_definition
 
 .base_template: &base_definition
   stage: base
-  image: gitlab-opengl-builder
+  image: ${BUILDER_IMAGE_NAME}
+  retry: 2
   <<: *tags_definition
   script:
     - if [[ "${NO_OS_SUFFIX}" == "true" ]]; then
@@ -73,7 +76,8 @@ prepare:
 
 .glvnd_template: &glvnd_definition
   stage: glvnd
-  image: gitlab-opengl-builder
+  image: ${BUILDER_IMAGE_NAME}
+  retry: 2
   <<: *tags_definition
   script:
     - VERSION="${CI_JOB_NAME:1}"
@@ -107,7 +111,7 @@ prepare:
 
 .scan_template: &scan_definition
   stage: scan
-  image: gitlab-opengl-builder
+  image: ${BUILDER_IMAGE_NAME}
   <<: *tags_definition
   script:
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab-master.nvidia.com/sectooling/scanning/contamer.git
@@ -127,7 +131,8 @@ prepare:
 
 .deploy_template: &deploy_definition
   stage: deploy
-  image: gitlab-opengl-builder
+  image: ${BUILDER_IMAGE_NAME}
+  retry: 2
   <<: *tags_definition
   script:
     - for tag in $(env | grep 'NV_.*_TAGS' | cut -f2 -d=); do
