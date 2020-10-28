@@ -46,13 +46,22 @@ OpenGL images come in three flavors:
 - [`1.2-glvnd-runtime-ubuntu16.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/ubuntu16.04/glvnd/runtime/Dockerfile)
 - [`1.2-glvnd-devel-ubuntu16.04` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/ubuntu16.04/glvnd/devel/Dockerfile)
 
-## Centos 8 and 7
+## Centos 8
 
-Release is currently impacted by a known CVE detected in the upstream base images:
+- [`base-centos8` (*base/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/base/Dockerfile)
+- [`1.0-glvnd-runtime-centos8` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/runtime/Dockerfile)
+- [`1.0-glvnd-devel-centos8` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/devel/Dockerfile)
+- [`1.1-glvnd-runtime-centos8` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/runtime/Dockerfile)
+- [`1.1-glvnd-devel-centos8` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/devel/Dockerfile)
+- [`1.2-glvnd-runtime-centos8` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/runtime/Dockerfile)
+- [`1.2-glvnd-devel-centos8` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/devel/Dockerfile)
 
-```
-vulnerabilities package HIGH Vulnerability found in os package type (rpm) - libX11 (CVE-2020-14363 - https://access.redhat.com/security/cve/CVE-2020-14363) stop
-vulnerabilities package HIGH Vulnerability found in os package type (rpm) - libX11-common (CVE-2020-14363 - https://access.redhat.com/security/cve/CVE-2020-14363) stop
-```
+## Centos 7
 
-Images will be released as soon as this package is fixed upstream.
+- [`base-centos7` (*base/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/base/Dockerfile)
+- [`1.0-glvnd-runtime-centos7` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/glvnd/runtime/Dockerfile)
+- [`1.0-glvnd-devel-centos7` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/glvnd/devel/Dockerfile)
+- [`1.1-glvnd-runtime-centos7` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/glvnd/runtime/Dockerfile)
+- [`1.1-glvnd-devel-centos7` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/glvnd/devel/Dockerfile)
+- [`1.2-glvnd-runtime-centos7` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/glvnd/runtime/Dockerfile)
+- [`1.2-glvnd-devel-centos7` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/glvnd/devel/Dockerfile)
