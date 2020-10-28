@@ -114,18 +114,31 @@ prepare:
   image: ${BUILDER_IMAGE_NAME}
   <<: *tags_definition
   script:
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab-master.nvidia.com/sectooling/scanning/contamer.git
-    - cd contamer
-    - pip3 install -r requirements.txt
-    - docker pull ${IMAGE_TO_SCAN}
-    - python3 contamer.py -ls --fail-on-non-os ${IMAGE_TO_SCAN}
-    - export CONTAMER_RET=$?
-    - docker rmi -f ${IMAGE_TO_SCAN}
-    - >-
-      if [[ $CONTAMER_RET -ne 0 ]]; then
-        exit 1;
+    - |
+      if [[ -z $NO_SCAN ]]; then
+        git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab-master.nvidia.com/sectooling/scanning/contamer.git
+        cd contamer
+        pip3 install -r requirements.txt
+        docker pull ${IMAGE_TO_SCAN}
+
+        # CVE-2020-14352 CVE-2020-15888: librepo, lua-libs packages WAIVED via https://nvbugswb.nvidia.com/NvBugs5/SWBug.aspx?bugid=3028123&cmtNo=35
+        # CVE-2020-14363 CVE-2020-14363  libX11 libx11-common
+        python3 contamer.py --debug-logs -ls --fail-on-non-os ${IMAGE_TO_SCAN} \
+            --suppress-vulns CVE-2020-14352 CVE-2020-15888 CVE-2020-14363 CVE-2020-14363 | tee /tmp/output
+        retval=$?
+
+        echo "Contamer return value: ${retval}";
+        docker rmi -f ${IMAGE_TO_SCAN}
+        if [[ $retval -ne 0 ]]; then
+            exit 1;
+        else
+            # we need to look at the output for "Traceback" because contamer doesn't return non-zero on exception failure...
+            if cat /tmp/output | grep -q "Traceback\|Exception: Image analysis failed"; then
+                exit 1;
+            fi
+        fi
       else
-        echo "Contamer return value: ${CONTAMER_RET}";
+        exit 0;
       fi
 
 
