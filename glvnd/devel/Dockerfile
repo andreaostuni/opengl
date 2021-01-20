@@ -22,7 +22,7 @@ FROM ${from}
 
 RUN yum install -y 'dnf-command(config-manager)'
 
-RUN yum config-manager --set-enabled PowerTools
+RUN yum config-manager --set-enabled powertools
 
 RUN yum install -y \
         pkgconfig \
