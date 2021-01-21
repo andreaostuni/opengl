@@ -3,7 +3,7 @@ ARG from
 FROM ${from}
 LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>"
 
-RUN yum upgrade -y && yum install -y \
+RUN yum upgrade -y --exclude=libcublas-devel && yum install -y \
         libXau libXau.i686 \
         libXdmcp libXdmcp.i686 \
         libxcb libxcb.i686 \
