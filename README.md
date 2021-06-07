@@ -6,6 +6,16 @@
 
 Example Dockerfiles: https://gitlab.com/nvidia/samples/tree/master/opengl
 
+## End User License Agreements
+
+The images are governed by the following NVIDIA End User License Agreements. By pulling and using the NVIDIA OpenGL container images, you accept the terms and conditions of these licenses.
+
+Since the images may include components licensed under open-source licenses such as GPL, the sources for these components are archived [here](https://developer.download.nvidia.com/compute/cuda/opensource/image).
+
+### NVIDIA Deep learning Container License
+
+To view the NVIDIA Deep Learning Container license, click [here](https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license)
+
 ## Tags
 
 OpenGL images come in three flavors:
@@ -48,6 +58,10 @@ OpenGL images come in three flavors:
 
 ## Centos 8
 
+WARNING: POSSIBLE MISSING IMAGE TAGS
+
+The opengl image tags for centos7 and 8 may be missing or out-of-date on NGC and Docker Hub. Centos upstream images often fail security scans required by Nvidia before publishing images. Please check https://gitlab-master.nvidia.com/cuda-installer/opengl/-/issues for any security notices!
+
 - [`base-centos8` (*base/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/base/Dockerfile)
 - [`1.0-glvnd-runtime-centos8` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/runtime/Dockerfile)
 - [`1.0-glvnd-devel-centos8` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/devel/Dockerfile)
@@ -57,6 +71,10 @@ OpenGL images come in three flavors:
 - [`1.2-glvnd-devel-centos8` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos8/glvnd/devel/Dockerfile)
 
 ## Centos 7
+
+WARNING: POSSIBLE MISSING IMAGE TAGS
+
+The opengl tags for centos7 and 8 may be missing or out-of-date on NGC and Docker Hub. Centos upstream images often fail security scans required by Nvidia before publishing images. Please check https://gitlab-master.nvidia.com/cuda-installer/opengl/-/issues for any security notices!
 
 - [`base-centos7` (*base/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/base/Dockerfile)
 - [`1.0-glvnd-runtime-centos7` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/blob/centos7/glvnd/runtime/Dockerfile)
