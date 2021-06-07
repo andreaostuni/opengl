@@ -61,6 +61,7 @@ prepare:
         export TAG_BASE=" -t ${IMAGE_NAME}:base";
         export NV_BASE_EXTRA_TAGS="base";
       fi
+    - cp NGC-DL-CONTAINER-LICENSE base/
     - docker buildx create --use --name opengl
     - docker buildx build --push -t "${IMAGE_NAME}:base-${OS}${OS_VERSION}" ${TAG_BASE}
                    --build-arg BUILDKIT_INLINE_CACHE=1
