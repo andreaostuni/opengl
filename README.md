@@ -1,12 +1,12 @@
-## Ubuntu 20.04
+## Ubuntu 22.04
 
-- [`base`, `base-ubuntu20.04` (*base/Dockerfile*)](https://gitlab.com/container-images/opengl/-/blob/ubuntu20.04/base/Dockerfile)
-- [`1.0-glvnd-runtime`, `1.0-glvnd-runtime-ubuntu20.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu20.04/glvnd/runtime/Dockerfile)
-- [`1.0-glvnd-devel`, `1.0-glvnd-devel-ubuntu20.04` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu20.04/glvnd/devel/Dockerfile)
-- [`1.1-glvnd-runtime`, `1.1-glvnd-runtime-ubuntu20.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu20.04/glvnd/runtime/Dockerfile)
-- [`1.1-glvnd-devel`, `1.1-glvnd-devel-ubuntu20.04` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu20.04/glvnd/devel/Dockerfile)
-- [`1.2-glvnd-runtime`, `1.2-glvnd-runtime-ubuntu20.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu20.04/glvnd/runtime/Dockerfile)
-- [`1.2-glvnd-devel`, `1.2-glvnd-devel-ubuntu20.04` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu20.04/glvnd/devel/Dockerfile)
+- [`base`, `base-ubuntu22.04` (*base/Dockerfile*)](https://gitlab.com/container-images/opengl/-/blob/ubuntu22.04/base/Dockerfile)
+- [`1.0-glvnd-runtime`, `1.0-glvnd-runtime-ubuntu22.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu22.04/glvnd/runtime/Dockerfile)
+- [`1.0-glvnd-devel`, `1.0-glvnd-devel-ubuntu22.04` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu22.04/glvnd/devel/Dockerfile)
+- [`1.1-glvnd-runtime`, `1.1-glvnd-runtime-ubuntu22.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu22.04/glvnd/runtime/Dockerfile)
+- [`1.1-glvnd-devel`, `1.1-glvnd-devel-ubuntu22.04` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu22.04/glvnd/devel/Dockerfile)
+- [`1.2-glvnd-runtime`, `1.2-glvnd-runtime-ubuntu22.04` (*glvnd/runtime/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu22.04/glvnd/runtime/Dockerfile)
+- [`1.2-glvnd-devel`, `1.2-glvnd-devel-ubuntu22.04` (*glvnd/devel/Dockerfile*)](https://gitlab.com/nvidia/container-images/opengl/-/blob/ubuntu22.04/glvnd/devel/Dockerfile)
 
 ## HOW TO BUILD CUSTOM IMAGES USING THE DOCKER SCRIPTS
 
@@ -22,7 +22,7 @@ export LIBGLVND_VERSION="1.2"
 
 export FROM="${OS}:${OS_VERSION}"
 export OS="ubuntu"
-export OS_VERSION="20.04"
+export OS_VERSION="22.04"
 
 # Example for building unsupported debian images:
 # export FROM="debian:10"

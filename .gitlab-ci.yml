@@ -2,7 +2,7 @@
 
 variables:
   OS: "ubuntu"
-  OS_VERSION: "20.04"
+  OS_VERSION: "22.04"
   IMAGE_NAME: "gitlab-master.nvidia.com:5005/cuda-installer/opengl"
   BUILDER_IMAGE_NAME: "${IMAGE_NAME}/gitlab-builder"
   REGISTRIES: "nvcr.io/nvidia/opengl docker.io/nvidia/opengl urm.nvidia.com/sw-gpu-cuda-installer-docker-local/opengl"
